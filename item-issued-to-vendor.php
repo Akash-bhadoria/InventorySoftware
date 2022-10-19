@@ -109,6 +109,8 @@ window.location.href = 'item-issued-to-vendor.php';
                         <form id="vendorForm" method="post" name="addemp">
                             <div>
                                 <span class="headc">ITEM ISSUED TO VENDOR</span>
+                                <span><a style="margin-left: 699px" class="btn btn-success" href="add-item.php">ADD
+                                        ITEM</a></span>
                                 <hr>
                                 <section>
                                     <div class="wizard-content">
