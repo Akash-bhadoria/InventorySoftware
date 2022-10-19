@@ -172,10 +172,20 @@ window.location.href = 'item-issued-to-vendor.php';
                                                             <?php }} ?>
                                                         </select>
                                                     </div>
-
+                                                    <?php $sql = "SELECT MAX(challan_issued) as challan_no from item_issued_to_vendor";
+                                                                $query = $dbh -> prepare($sql);
+                                                                $query->execute();
+                                                                $results=$query->fetchAll(PDO::FETCH_OBJ);
+                                                                $cnt=1;
+                                                                if($query->rowCount() > 0)
+                                                                {
+                                                                foreach($results as $result)
+                                                                { $challan_count = $result->challan_no;  ?>
+                                                    <?php }} ?>
                                                     <div class="input-field col m12 s12">
                                                         <label for="vendor">Challan No</label>
                                                         <input type="text" id="challan_issued" name="challan_issued"
+                                                            value="<?php echo htmlentities($challan_count + 1);?>"
                                                             required />
                                                     </div>
 
