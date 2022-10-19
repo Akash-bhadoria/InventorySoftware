@@ -1,0 +1,261 @@
+.status {
+  background-color: #f2f2f2;
+  padding-bottom: 70px;
+  border-radius: 20px;
+  margin-left: 11px;
+}
+
+.status-p {
+  font-size: 23px;
+  margin-top: 50px;
+  padding-top: 60px;
+  font-family: "nunito";
+  color: #000;
+}
+.h {
+  font-family: "nunito";
+}
+.dat {
+  padding-left: 67%;
+  font-size: 14px;
+  color: #000066;
+}
+.main-cont {
+  font-family: "Gideon Roman";
+  padding-left: 90px;
+  padding-right: 90px;
+}
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
+
+body {
+  background-color: #fff;
+}
+
+.h {
+  font-family: "nunito";
+}
+
+/* .container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+} */
+
+.screen {
+  background: linear-gradient(90deg, #00004d, #00004d);
+  position: relative;
+  height: 600px;
+  width: 360px;
+  box-shadow: 0px 0px 24px #5c5696;
+}
+
+.screen__content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+
+.screen__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
+
+.screen__background__shape {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.screen__background__shape1 {
+  height: 520px;
+  width: 520px;
+  background: #fff;
+  top: -50px;
+  right: 120px;
+  border-radius: 0 72px 0 0;
+}
+
+.screen__background__shape2 {
+  height: 220px;
+  width: 220px;
+  background: #6c63ac;
+  top: -172px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen__background__shape3 {
+  height: 540px;
+  width: 190px;
+  background: linear-gradient(270deg, #040486, #00004d);
+  top: -24px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen__background__shape4 {
+  height: 400px;
+  width: 200px;
+  background: #7e7bb9;
+  top: 420px;
+  right: 50px;
+  border-radius: 60px;
+}
+
+.login {
+  width: 320px;
+  padding: 30px;
+  padding-top: 8px;
+}
+
+.login__field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.login__icon {
+  position: absolute;
+  top: 30px;
+  color: #7875b5;
+}
+
+.login__input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  /* font-weight: 700; */
+  width: 75%;
+  font-family: "nunito";
+  transition: 0.2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+  outline: none;
+  border-bottom-color: #6a679e;
+}
+
+.login__submit {
+  background: #fff;
+  font-size: 14px;
+  margin-top: 30px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.admin {
+  font-family: "georgia";
+  font-size: 26px;
+  padding-top: 120px;
+  margin-left: 30px;
+  color: #00004d;
+}
+.main-cont {
+  font-family: "Gideon Roman";
+  padding-left: 90px;
+  padding-right: 90px;
+}
+
+/* ------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+.count {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  color: #000;
+  letter-spacing: 2px;
+}
+
+.errorWrap1 {
+  padding: 10px;
+  margin: 0 0 20px 0;
+  font-size: 12px;
+  font-family: monospace;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.headc {
+  font-size: 30px;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+}
+
+.inner {
+  font-family: monospace;
+}
+
+.punchform {
+  margin-left: 100px;
+  margin-right: -250px;
+  margin-top: 26px;
+}
+
+.punchcon {
+  margin-left: 80px;
+}
+
+form i {
+  margin-left: -30px;
+  cursor: pointer;
+}
+
+.punch {
+  margin-left: 75px;
+  margin-right: -215px;
+}
+
+.lp {
+  color: #000;
+}
+
+.star {
+  visibility: hidden;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 20px;
+  color: #fff000;
+}
+.star:before {
+  content: "\2605";
+  position: absolute;
+  visibility: visible;
+}
+.star:checked:before {
+  content: "\2606";
+  position: absolute;
+}
+
+.checkstar {
+  margin-top: 24px;
+}
+
+.checkx {
+  margin-top: 35px;
+}
