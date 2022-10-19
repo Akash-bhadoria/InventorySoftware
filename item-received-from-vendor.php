@@ -52,7 +52,7 @@ else{
                             </thead>
 
                             <tbody>
-                                <?php $sql = "SELECT item_issued_to_vendor.*,item_received_from_vendor.*, tbl_item_type.item_type from item_issued_to_vendor LEFT JOIN tbl_item_type ON tbl_item_type.id=item_issued_to_vendor.item_name_issued LEFT JOIN item_received_from_vendor ON item_received_from_vendor.issued_id = item_issued_to_vendor.id ";
+                                <?php $sql = "SELECT item_issued_to_vendor.*,item_received_from_vendor.*, GROUP_CONCAT(tbl_item_type.item_type SEPARATOR ', ')as item_name, tbl_vendor.vendor_name from item_issued_to_vendor LEFT JOIN tbl_item_type ON FIND_IN_SET(tbl_item_type.id, item_issued_to_vendor.item_name_issued) > 0 LEFT JOIN item_received_from_vendor ON item_received_from_vendor.issued_id = item_issued_to_vendor.id LEFT JOIN tbl_vendor on tbl_vendor.id=item_issued_to_vendor.vendor_issued ";
                                 $query = $dbh -> prepare($sql);
                                 $query->execute();
                                 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -62,13 +62,13 @@ else{
                                 ?>
                                 <tr>
                                     <td> <?php echo htmlentities($cnt);?></td>
-                                    <td><?php echo htmlentities($result->item_type);?></td>
+                                    <td><?php echo htmlentities($result->item_name);?></td>
                                     <td style="color: green;">
                                         <b><?php echo htmlentities($result->quantity_issued);?></b>
                                     </td>
                                     <td><?php echo htmlentities($result->date_issued);?></td>
                                     <td><?php echo htmlentities($result->challan_issued);?></td>
-                                    <td><?php echo htmlentities($result->vendor_issued);?></td>
+                                    <td><?php echo htmlentities($result->vendor_name);?></td>
                                     <td style="color: red;"><b><?php echo htmlentities($result->total_item_left);?></b>
                                     <td style="color: blue;"><b><?php echo htmlentities($result->defective_item);?></b>
                                     <td style="color: orange;">
