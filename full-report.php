@@ -177,11 +177,11 @@ else{
                                     <td> <?php echo $result['item_name'];?> </td>
                                     <td> <?php echo $result['vendor_name'];?> </td>
                                     <td> <?php echo $result['challan_issued'];?> </td>
-                                    <td> <?php echo $result['quantity_issued'];?> </td>
+                                    <td style="color: green;"> <?php echo $result['quantity_issued'];?> </td>
                                     <td> <?php echo $result['total_received'];?> </td>
-                                    <td> <?php echo $result['last_quantity_received'];?> </td>
-                                    <td> <?php echo $result['defective_item'];?> </td>
-                                    <td> <?php echo $result['total_item_left'];?> </td>
+                                    <td style="color: purple;"> <?php echo $result['last_quantity_received'];?> </td>
+                                    <td style="color: orange;"> <?php echo $result['defective_item'];?> </td>
+                                    <td style="color: red;"> <?php echo $result['total_item_left'];?> </td>
                                     <td> <?php echo $result['date_issued'];?> </td>
                                     <td> <a class="btn btn-success"
                                             href="item-received-update-vendor.php?id=<?php echo htmlentities($result['id']);?>">ADD
