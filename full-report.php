@@ -33,7 +33,7 @@ else{
                         <form id="filterForm" method="post" name="addemp">
                             <div class="row">
                                 <div class="row">
-                                    <span class="headc">FILTER</span>
+                                    <span class="headc">REPORT</span>
                                     <hr>
                                     <div class="input-field col m3 s12">
                                         <input id="from_date" type="date" class="validate" autocomplete="off"
@@ -69,7 +69,7 @@ else{
                                         <label for="challan">CHALLAN NO</label>
                                     </div>
                                     <div class="input-field col m3  s12">
-                                        <select name="item_name" id="item_name" autocomplete="off">
+                                        <select name="vendor_name" id="vendor_name" autocomplete="off">
                                             <option></option>
                                             <?php $sql = "SELECT  id,vendor_name from tbl_vendor";
                                                                 $query = $dbh -> prepare($sql);
@@ -122,6 +122,7 @@ else{
                                     <th>Defective Item</th>
                                     <th>Total Item Left</th>
                                     <th>Issued Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
@@ -132,23 +133,29 @@ else{
                                     $to_date=$_POST['to_date'];
                                     $item_name=$_POST['item_name'];
                                     $challan=$_POST['challan'];
-                                    $vendor=$_POST['vendor'];
+                                    $vendor_name=$_POST['vendor_name'];
 
                                     $query = "SELECT
-                                        *
-                                    FROM
-                                        item_issued_to_vendor iitv 
-                                        LEFT JOIN item_received_from_vendor irfv ON
-                                        irfv.issued_id = iitv.id 
-                                        LEFT JOIN tbl_item_type tit ON
-                                        tit.id= iitv.item_name_issued
-                                        WHERE iitv.item_name_issued IS NOT NULL";
+                                    iitv.*,
+                                    irfv.*,
+                                    tbl_vendor.vendor_name,
+                                    GROUP_CONCAT(tit.item_type SEPARATOR ', ')as item_name
+                                    FROM 
+                                    item_issued_to_vendor iitv
+                                    LEFT JOIN item_received_from_vendor irfv ON 
+                                    irfv.issued_id = iitv.id 
+                                    LEFT JOIN tbl_item_type tit ON 
+                                    FIND_IN_SET(tit.id, iitv.item_name_issued) > 0 
+                                    LEFT JOIN tbl_vendor ON 
+                                    tbl_vendor.id = iitv.vendor_issued 
+                                    WHERE 
+                                    iitv.item_name_issued IS NOT NULL";
 
                                     if($item_name != ""){
-                                        $query .= " AND iitv.item_name_issued = '$item_name'";
+                                        $query .= " AND FIND_IN_SET('$item_name', iitv.item_name_issued)";
                                     }   
-                                    if($vendor != ""){
-                                        $query .= " AND iitv.vendor_issued LIKE '%$vendor%'";
+                                    if($vendor_name != ""){
+                                        $query .= " AND iitv.vendor_issued IN ($vendor_name) ";
                                     }   
                                     if($challan != ""){
                                         $query .= " AND iitv.challan_issued LIKE '%$challan%'";
@@ -159,6 +166,9 @@ else{
                                     if($from_date != "" && $to_date != ""){
                                         $query .= " AND iitv.date_issued BETWEEN '$from_date' AND '$to_date'";
                                     }   
+                                    $query .= " GROUP BY iitv.id ORDER BY iitv.challan_issued DESC  ";
+
+                                    print_r($query);
                                     
 
 
@@ -166,11 +176,10 @@ else{
 
                                     if(mysqli_num_rows($qdis)>0){
                                         foreach($qdis as $result) {
-                                            // print_r($result);
                                             ?>
-                                <tr>
-                                    <td> <?php echo $result['item_type'];?> </td>
-                                    <td> <?php echo $result['vendor_issued'];?> </td>
+                                <tr style="color:#000">
+                                    <td> <?php echo $result['item_name'];?> </td>
+                                    <td> <?php echo $result['vendor_name'];?> </td>
                                     <td> <?php echo $result['challan_issued'];?> </td>
                                     <td> <?php echo $result['quantity_issued'];?> </td>
                                     <td> <?php echo $result['total_received'];?> </td>
@@ -178,6 +187,10 @@ else{
                                     <td> <?php echo $result['defective_item'];?> </td>
                                     <td> <?php echo $result['total_item_left'];?> </td>
                                     <td> <?php echo $result['date_issued'];?> </td>
+                                    <td> <a class="btn btn-success"
+                                            href="item-received-update-vendor.php?id=<?php echo htmlentities($result['id']);?>">ADD
+                                            RECEIVED</a>
+                                    </td>
                                 </tr>
 
                                 <?php
@@ -185,7 +198,12 @@ else{
                                     }else{
                                         ?>
                                 <script>
-                                alert("No Record Found");
+                                Swal.fire({
+                                    title: 'No Record Found',
+                                    text: "Search Something Different",
+                                    icon: "error",
+                                    timer: 3000,
+                                });
                                 </script>
                                 <?php
                                     }
