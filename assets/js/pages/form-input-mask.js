@@ -1,6 +1,6 @@
-// $(document).ready(function() {
-//     $(".masked").inputmask();
-//     // PrettyPrint
-//     $('pre').addClass('prettyprint');
-//     prettyPrint();
-// });
+$(document).ready(function() {
+    $(".masked").inputmask();
+    // PrettyPrint
+    $('pre').addClass('prettyprint');
+    prettyPrint();
+});
