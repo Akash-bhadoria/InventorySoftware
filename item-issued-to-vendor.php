@@ -10,29 +10,44 @@ header('location:index.php');
 }
 else{
     $cdate = date('Y-m-d');
-    if(isset($_POST['add_issued'])){
-        $item_name= implode(",",$_POST['item_name_issued']);
-        $quantity=$_POST['quantity_issued'];
-        $date=$_POST['date_issued'];
-        $challan=$_POST['challan_issued'];
-        $vendor=$_POST['vendor_issued'];
 
-        
+    $sql = "SELECT MAX(challan_issued) as challan_no from item_issued_to_vendor";
+    $query = $dbh -> prepare($sql);
+    $query->execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    $cnt=1;
+    if($query->rowCount() > 0){
+        foreach($results as $result){ 
+            $challan_count = $result->challan_no; 
+        }
+    }
 
-        $sql="INSERT INTO item_issued_to_vendor(item_name_issued, quantity_issued, date_issued, challan_issued, vendor_issued,total_item_left, created_at) VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item_quantity,NOW())";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':item_name',$item_name,PDO::PARAM_STR);
-        $query->bindParam(':item_quantity',$quantity,PDO::PARAM_STR);
-        $query->bindParam(':item_date',$date,PDO::PARAM_STR);
-        $query->bindParam(':challan_issued',$challan,PDO::PARAM_STR);
-        $query->bindParam(':vendor_issued',$vendor,PDO::PARAM_STR);
-        $query->execute();
+if(isset($_POST['add_issued'])){
+$item_name= implode(",",$_POST['item_name_issued']);
+$quantity=$_POST['quantity_issued'];
+$date=$_POST['date_issued'];
+$challan=$_POST['challan_issued'];
+$vendor=$_POST['vendor_issued'];
 
-        $lastInsertId = $dbh->lastInsertId();
-        mysqli_query($connection, "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES ('$lastInsertId','$quantity', NOW())");
-        if($lastInsertId){
-            $msg="Details Saved Successfully";
-            ?>
+
+
+$sql="INSERT INTO item_issued_to_vendor(item_name_issued, quantity_issued, date_issued, challan_issued,
+vendor_issued,total_item_left, created_at)
+VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item_quantity,NOW())";
+$query = $dbh->prepare($sql);
+$query->bindParam(':item_name',$item_name,PDO::PARAM_STR);
+$query->bindParam(':item_quantity',$quantity,PDO::PARAM_STR);
+$query->bindParam(':item_date',$date,PDO::PARAM_STR);
+$query->bindParam(':challan_issued',$challan,PDO::PARAM_STR);
+$query->bindParam(':vendor_issued',$vendor,PDO::PARAM_STR);
+$query->execute();
+
+$lastInsertId = $dbh->lastInsertId();
+mysqli_query($connection, "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES
+('$lastInsertId','$quantity', NOW())");
+if($lastInsertId){
+$msg="Details Saved Successfully";
+?>
 <script>
 window.setTimeout(function() {
     window.location = "item-issued-to-vendor.php";
@@ -172,22 +187,15 @@ window.location.href = 'item-issued-to-vendor.php';
                                                             <?php }} ?>
                                                         </select>
                                                     </div>
-                                                    <?php $sql = "SELECT MAX(challan_issued) as challan_no from item_issued_to_vendor";
-                                                                $query = $dbh -> prepare($sql);
-                                                                $query->execute();
-                                                                $results=$query->fetchAll(PDO::FETCH_OBJ);
-                                                                $cnt=1;
-                                                                if($query->rowCount() > 0)
-                                                                {
-                                                                foreach($results as $result)
-                                                                { $challan_count = $result->challan_no;  ?>
-                                                    <?php }} ?>
+
                                                     <div class="input-field col m12 s12">
                                                         <label for="vendor">Challan No</label>
                                                         <input type="number" min="1500" id="challan_issued"
                                                             name="challan_issued"
                                                             value="<?php echo htmlentities($challan_count + 1);?>"
                                                             required />
+                                                        <small class="challan">This is automated generated challan
+                                                            number</small>
                                                     </div>
 
                                                     <div class="input-field col m12 s12">
