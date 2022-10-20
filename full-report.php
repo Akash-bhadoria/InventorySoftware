@@ -68,10 +68,23 @@ else{
                                             name="challan">
                                         <label for="challan">CHALLAN NO</label>
                                     </div>
-                                    <div class="input-field col m3 s12">
-                                        <input id="vendor" type="text" class="validate" autocomplete="off"
-                                            name="vendor">
-                                        <label for="vendor">VENDOR NAME</label>
+                                    <div class="input-field col m3  s12">
+                                        <select name="item_name" id="item_name" autocomplete="off">
+                                            <option></option>
+                                            <?php $sql = "SELECT  id,vendor_name from tbl_vendor";
+                                                                $query = $dbh -> prepare($sql);
+                                                                $query->execute();
+                                                                $items=$query->fetchAll(PDO::FETCH_OBJ);
+                                                                $cnt=1;
+                                                                if($query->rowCount() > 0)
+                                                                {
+                                                                foreach($items as $item)
+                                                                {   ?>
+                                            <option value="<?php echo $item->id;?>">
+                                                <?php echo $item->vendor_name;?></option>
+                                            <?php }} ?>
+                                        </select>
+                                        <label for="item-name">ITEM NAME</label>
                                     </div>
 
 

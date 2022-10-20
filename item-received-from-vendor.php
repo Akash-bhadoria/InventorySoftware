@@ -52,7 +52,7 @@ else{
                             </thead>
 
                             <tbody>
-                                <?php $sql = "SELECT item_issued_to_vendor.*,item_received_from_vendor.*, GROUP_CONCAT(tbl_item_type.item_type SEPARATOR ', ')as item_name, tbl_vendor.vendor_name from item_issued_to_vendor LEFT JOIN tbl_item_type ON FIND_IN_SET(tbl_item_type.id, item_issued_to_vendor.item_name_issued) > 0 LEFT JOIN item_received_from_vendor ON item_received_from_vendor.issued_id = item_issued_to_vendor.id LEFT JOIN tbl_vendor on tbl_vendor.id=item_issued_to_vendor.vendor_issued ";
+                                <?php $sql = "SELECT item_issued_to_vendor.*,item_received_from_vendor.*, GROUP_CONCAT(tbl_item_type.item_type SEPARATOR ', ')as item_name, tbl_vendor.vendor_name from item_issued_to_vendor LEFT JOIN tbl_item_type ON FIND_IN_SET(tbl_item_type.id, item_issued_to_vendor.item_name_issued) > 0 LEFT JOIN item_received_from_vendor ON item_received_from_vendor.issued_id = item_issued_to_vendor.id LEFT JOIN tbl_vendor on tbl_vendor.id=item_issued_to_vendor.vendor_issued GROUP BY item_issued_to_vendor.id ";
                                 $query = $dbh -> prepare($sql);
                                 $query->execute();
                                 $results=$query->fetchAll(PDO::FETCH_OBJ);
