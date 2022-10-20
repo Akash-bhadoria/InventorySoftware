@@ -18,7 +18,7 @@ else{
     $cnt=1;
     if($query->rowCount() > 0){
         foreach($results as $result){ 
-            $challan_count = $result->challan_no ?? ""; 
+            $challan_count = $result->challan_no ?? "1500"; 
         }
     }
 
@@ -189,7 +189,7 @@ window.location.href = 'item-issued-to-vendor.php';
                                                     </div>
 
                                                     <div class="input-field col m12 s12">
-                                                        <label for="vendor">Challan No</label>
+                                                        <label class="active" for="vendor">Challan No</label>
                                                         <input type="number" min="1500" id="challan_issued"
                                                             name="challan_issued"
                                                             value="<?php echo htmlentities($challan_count + 1);?>"
