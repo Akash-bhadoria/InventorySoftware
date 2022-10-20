@@ -1,6 +1,6 @@
 <?php
 session_start();
-// error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 include('includes/layout.php');
 if(strlen($_SESSION['emplogin'])==0)
@@ -167,10 +167,6 @@ else{
                                         $query .= " AND iitv.date_issued BETWEEN '$from_date' AND '$to_date'";
                                     }   
                                     $query .= " GROUP BY iitv.id ORDER BY iitv.challan_issued DESC  ";
-
-                                    print_r($query);
-                                    
-
 
                                     $qdis = mysqli_query($connection, $query);
 

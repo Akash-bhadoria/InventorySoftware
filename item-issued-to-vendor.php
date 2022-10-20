@@ -1,6 +1,6 @@
 <?php
 session_start();
-// error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 include('includes/layout.php');
 
@@ -18,7 +18,7 @@ else{
     $cnt=1;
     if($query->rowCount() > 0){
         foreach($results as $result){ 
-            $challan_count = $result->challan_no; 
+            $challan_count = $result->challan_no ?? ""; 
         }
     }
 
