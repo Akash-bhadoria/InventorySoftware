@@ -12,11 +12,17 @@ if(isset($_POST['update'])){
     $lid=intval($_GET['lid']);
     $vendorName=$_POST['vendorName'];
     $vendorMobile=$_POST['vendorMobile'] ?? null;
+    $vendorGST=$_POST['vendorGST'] ?? null;
+    $vendorAddress=$_POST['vendorAddress'] ?? null;
+    $vendorNotes=$_POST['vendorNotes'] ?? null;
 
-    $sql="UPDATE tbl_vendor SET vendor_name=:vName,vendor_mobile=:vMobile WHERE id=:lid";
+    $sql="UPDATE tbl_vendor SET vendor_name=:vName,vendor_mobile=:vMobile, vendor_gst=:vGST, vendor_address=:vAddress, vendor_notes=:vNotes WHERE id=:lid";
     $query = $dbh->prepare($sql);
     $query->bindParam(':vName',$vendorName,PDO::PARAM_STR);
     $query->bindParam(':vMobile',$vendorMobile,PDO::PARAM_STR);
+    $query->bindParam(':vGST',$vendorGST,PDO::PARAM_STR);
+    $query->bindParam(':vAddress',$vendorAddress,PDO::PARAM_STR);
+    $query->bindParam(':vNotes',$vendorNotes,PDO::PARAM_STR);
     $query->bindParam(':lid',$lid,PDO::PARAM_STR);
     $query->execute();
     ?>
@@ -83,6 +89,28 @@ window.location.href = "add-vendor.php";
                                             name="vendorMobile"
                                             value="<?php echo htmlentities($result->vendor_mobile);?>">
                                         <label class="active" for="vendorMobile">Vendor Mobile</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="vendorGST" type="text"
+                                            pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                                            class="validate" autocomplete="off" name="vendorGST"
+                                            value="<?php echo htmlentities($result->vendor_gst);?>">
+                                        <label class="active" for="vendorGST">Vendor GST</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="vendorAddress" type="text" class="materialize-textarea"
+                                            class="validate" autocomplete="off"
+                                            name="vendorAddress"><?php echo htmlentities($result->vendor_address);?></textarea>
+                                        <label class="active" for="vendorAddress">Vendor Address</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="vendorNotes" type="text" class="materialize-textarea"
+                                            class="validate" autocomplete="off"
+                                            name="vendorNotes"><?php echo htmlentities($result->vendor_notes);?></textarea>
+                                        <label class="active" for="vendorNotes">Vendor Notes</label>
                                     </div>
 
                                     <?php }} ?>
