@@ -154,8 +154,11 @@ window.location.href = 'add-vendor.php';
                             <thead>
                                 <tr>
                                     <th>Sr no</th>
-                                    <th>Leave Type</th>
-                                    <th>Description</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>GST</th>
+                                    <th>Address</th>
+                                    <th>Notes</th>
                                     <th>Creation Date</th>
                                     <th>Updated Date</th>
                                     <th>Action</th>
@@ -175,6 +178,9 @@ window.location.href = 'add-vendor.php';
                                     <td> <?php echo htmlentities($cnt);?></td>
                                     <td><?php echo htmlentities($result->vendor_name);?></td>
                                     <td><?php echo htmlentities($result->vendor_mobile);?></td>
+                                    <td><?php echo htmlentities($result->vendor_gst);?></td>
+                                    <td><?php echo htmlentities($result->vendor_address);?></td>
+                                    <td><?php echo htmlentities($result->vendor_notes);?></td>
                                     <td><?php echo htmlentities($result->created_at);?></td>
                                     <td><?php echo htmlentities($result->updated_at);?></td>
                                     <td><a href="edit-vendor.php?lid=<?php echo htmlentities($result->id);?>"><i
