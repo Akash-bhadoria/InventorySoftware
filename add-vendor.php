@@ -11,11 +11,17 @@ else{
 if(isset($_POST['add'])){
     $vendorName=$_POST['vendorName'];
     $vendorMobile=$_POST['vendorMobile'] ?? null;
+    $vendorGST=$_POST['vendorGST'] ?? null;
+    $vendorAddress=$_POST['vendorAddress'] ?? null;
+    $vendorNotes=$_POST['vendorNotes'] ?? null;
 
-    $sql="INSERT INTO tbl_vendor(vendor_name,vendor_mobile) VALUES(:vName,:vMobile)";
+    $sql="INSERT INTO tbl_vendor(vendor_name,vendor_mobile, vendor_gst, vendor_address, vendor_notes) VALUES(:vName,:vMobile, :vGST, :vAddress, :vNotes)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':vName',$vendorName,PDO::PARAM_STR);
     $query->bindParam(':vMobile',$vendorMobile,PDO::PARAM_STR);
+    $query->bindParam(':vGST',$vendorGST,PDO::PARAM_STR);
+    $query->bindParam(':vAddress',$vendorAddress,PDO::PARAM_STR);
+    $query->bindParam(':vNotes',$vendorNotes,PDO::PARAM_STR);
     $query->execute();
     $lastInsertId = $dbh->lastInsertId();
     if($lastInsertId){
@@ -102,6 +108,25 @@ window.location.href = 'add-vendor.php';
                                         <input id="vendorMobile" type="tel" class="validate" autocomplete="off"
                                             name="vendorMobile">
                                         <label for="vendorMobile">Vendor Mobile</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="vendorGST" type="text"
+                                            pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                                            class="validate" autocomplete="off" name="vendorGST">
+                                        <label for="vendorGST">Vendor GST</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="vendorAddress" type="text" class="materialize-textarea"
+                                            class="validate" autocomplete="off" name="vendorAddress"> </textarea>
+                                        <label for="vendorAddress">Vendor Address</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="vendorNotes" type="text" class="materialize-textarea"
+                                            class="validate" autocomplete="off" name="vendorNotes"> </textarea>
+                                        <label for="vendorNotes">Vendor Notes</label>
                                     </div>
 
 
