@@ -19,50 +19,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
             $challan_count = $result->challan_no ?? "1500";
         }
     }
-
-    if (isset($_POST['add_issued'])) {
-        $item_name = implode(",", $_POST['item_name_issued']);
-        $quantity = $_POST['quantity_issued'];
-        $date = $_POST['date_issued'];
-        $challan = $_POST['challan_issued'];
-        $vendor = $_POST['vendor_issued'];
-
-
-
-        $sql = "INSERT INTO item_issued_to_vendor(item_name_issued, quantity_issued, date_issued, challan_issued,
-vendor_issued,total_item_left, created_at)
-VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item_quantity,NOW())";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':item_name', $item_name, PDO::PARAM_STR);
-        $query->bindParam(':item_quantity', $quantity, PDO::PARAM_STR);
-        $query->bindParam(':item_date', $date, PDO::PARAM_STR);
-        $query->bindParam(':challan_issued', $challan, PDO::PARAM_STR);
-        $query->bindParam(':vendor_issued', $vendor, PDO::PARAM_STR);
-        $query->execute();
-
-        $lastInsertId = $dbh->lastInsertId();
-        mysqli_query($connection, "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES
-('$lastInsertId','$quantity', NOW())");
-        if ($lastInsertId) {
-            $msg = "Details Saved Successfully";
-?>
-<script>
-window.setTimeout(function() {
-    window.location = "item-issued-to-vendor.php";
-}, 2000);
-</script>
-<?php
-        } else {
-            $error = "Something went wrong. Please try again";
-        ?>
-<script>
-window.setTimeout(function() {
-    window.location = "item-issued-to-vendor.php";
-}, 2000);
-</script>
-<?php
-        }
-    }
+    
 
     if (isset($_GET['delId'])) {
         $id = $_GET['delId'];
@@ -312,7 +269,7 @@ $('#vendorForm').submit(function(e) {
         url: "save-vendor-issued.php",
         data: formData,
         success: (res) => {
-            console.log(res);
+            window.location = "item-issued-to-vendor.php";
         }
     })
 });

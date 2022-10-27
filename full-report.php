@@ -84,7 +84,7 @@ else{
                                                 <?php echo $item->vendor_name;?></option>
                                             <?php }} ?>
                                         </select>
-                                        <label for="item-name">ITEM NAME</label>
+                                        <label for="item-name">VENDOR NAME</label>
                                     </div>
 
 
