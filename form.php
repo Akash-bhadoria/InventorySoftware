@@ -22,12 +22,4 @@ if(!empty($_POST["mobileno"])) {
 	}
 }
 
-/**
- *  Filter Query
-*/
-
-
-
-
-
 ?>

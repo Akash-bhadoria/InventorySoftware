@@ -38,7 +38,7 @@ if(isset($_POST['update'])){
     if($query1 && $query2){
        ?>
 <script>
-window.location = "item-issued-to-vendor.php";
+window.location = "item-received-from-vendor.php";
 </script>
 <?php
     }else{
@@ -51,7 +51,7 @@ Swal.fire({
     timer: 2000,
 });
 window.setTimeout(function() {
-    window.location = "item-issued-to-vendor.php";
+    window.location = "item-received-from-vendor.php";
 }, 2000);
 </script>
 <?php
@@ -92,7 +92,7 @@ window.setTimeout(function() {
                                 </div><?php }?>
                                 <?php
                                 $Rid=intval($_GET['id']);
-                                $sql = "SELECT item_issued_to_vendor.*, tbl_item_type.item_type FROM item_issued_to_vendor LEFT JOIN tbl_item_type ON tbl_item_type.id=item_issued_to_vendor.item_name_issued WHERE item_issued_to_vendor.id=:Rid";
+                                $sql = "SELECT item_issued_to_vendor.*, GROUP_CONCAT(tbl_item_type.item_type SEPARATOR ', ')as item_name, tbl_vendor.vendor_name FROM item_issued_to_vendor LEFT JOIN tbl_item_type ON FIND_IN_SET(tbl_item_type.id, item_issued_to_vendor.item_name_issued) > 0 LEFT JOIN tbl_vendor on tbl_vendor.id = item_issued_to_vendor.vendor_issued WHERE item_issued_to_vendor.id=:Rid GROUP BY item_issued_to_vendor.id ";
                                 $query = $dbh -> prepare($sql);
                                 $query->bindParam(':Rid',$Rid,PDO::PARAM_STR);
                                 $query->execute();
@@ -107,7 +107,7 @@ window.setTimeout(function() {
 
                                     <div class="input-field col m6 s12">
                                         <input id="item_name" type="text" class="validate" autocomplete="off"
-                                            name="item_name" value="<?php echo htmlentities($result->item_type);?>"
+                                            name="item_name" value="<?php echo htmlentities($result->item_name);?>"
                                             readonly>
                                         <label class="active" for="item_name">Item Name</label>
                                     </div>
@@ -132,7 +132,7 @@ window.setTimeout(function() {
                                     <div class="input-field col m6 s12">
                                         <input id="vendor_issued" type="text" class="validate" autocomplete="off"
                                             name="vendor_issued"
-                                            value="<?php echo htmlentities($result->vendor_issued);?>" readonly>
+                                            value="<?php echo htmlentities($result->vendor_name);?>" readonly>
                                         <label class="active" for="vendor_issued">Vendor Issued</label>
                                     </div>
                                     <div class="col s12">
