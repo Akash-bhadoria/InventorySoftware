@@ -225,7 +225,7 @@ window.location.href = 'item-issued-to-vendor.php';
                                             href="item-by-challan.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>&vendor_name=<?php echo htmlentities($result->vendor_name); ?>&date=<?php echo htmlentities($result->date_issued); ?>">OPEN
                                             CHALLAN</a>
                                         <a class="btn btn-success" style="background-color: orange"
-                                            href="print-recipt.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>">RECEIPT</a>
+                                            href="print-receipt.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>">RECEIPT</a>
                                         <a class="btn btn-success" style="background-color: red"
                                             onclick="return confirm('Do you want to delete  challan  Once its done it cant be revert');"
                                             href="item-issued-to-vendor.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>">DELETE</a>
