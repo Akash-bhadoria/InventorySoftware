@@ -22,7 +22,6 @@ else{
 
          if ($del1 && $del2) {
              $msg = "Issued vendor Entry Deleted";
-            header("location:$actual_link");
          } else {
              $error = "Something went wrong. Please try again";
          }
@@ -104,7 +103,7 @@ else{
                                     <td style="color: blue;"><b><?php echo htmlentities($result->total_received);?></b>
                                     <td><?php echo htmlentities($result->created_at);?></td>
                                     <td><a class="btn btn-success" style="background-color: green"
-                                            href="item-received-update-vendor.php?id=<?php echo htmlentities($result->issued_id);?>">
+                                            href="item-received-update-vendor.php?id=<?php echo htmlentities($result->issued_id);?>&challan_id=<?php echo $challan_id; ?>&vendor_name=<?php echo $vendor_name; ?>&date=<?php echo $date; ?>">
                                             ADD RECEIVED</a>
                                         <a class="btn btn-success" style="background-color: red"
                                             onclick="return confirm('Do you want to delete vendor entry. Once its done it cant be revert');"
