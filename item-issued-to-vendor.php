@@ -40,20 +40,15 @@ if (strlen($_SESSION['emplogin']) == 0) {
     }
     ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-
-        <!-- Title -->
-        <title>SANTLAL&SONS</title>
-    </head>
+    <!-- Title -->
+    <title>SANTLAL&SONS</title>
 
     <body>
         <?php include('includes/header.php'); ?>
 
         <?php include('includes/sidebar.php'); ?>
-        <main class="mn-inner" style="width: 145%;">
+        <main class="mn-inner" style="width: 100%;">
             <div class="row">
                 <div class="card-content">
 
@@ -122,7 +117,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                                         </div>
                                                         <div class="row_add_on">
                                                             <div class="input-field col m5 s12">
-                                                                <select name="item_name_issued[]" autocomplete="off" required>
+                                                                <select name="item_name_issued[]" id="item_name_issued" autocomplete="off" required>
                                                                     <option value="">Select Item Name...</option>
                                                                     <?php $sql = "SELECT  id,item_type from tbl_item_type";
                                                                     $query = $dbh->prepare($sql);
@@ -237,33 +232,33 @@ if (strlen($_SESSION['emplogin']) == 0) {
         </main>
         </div>
         <div class="left-sidebar-hover"></div>
-    </body>
 
-    </html>
-<?php } ?>
-<script>
-    $('#issuedVendor').DataTable({
-        "pageLength": 50,
-        "bLengthChange": false,
-    });
+    <?php } ?>
+    <script>
+        $('#issuedVendor').DataTable({
+            "pageLength": 50,
+            "bLengthChange": false,
+        });
+        $("#item_name_issued, #vendor_issued, .select2").select2();
 
-    $('#vendorForm').submit(function(e) {
-        e.preventDefault();
-        var formData = $('#vendorForm').serializeArray();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "save-vendor-issued.php",
-            data: formData,
-            success: (res) => {
-                window.location = "item-issued-to-vendor.php";
-            }
-        })
-    });
+        $('#vendorForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $('#vendorForm').serializeArray();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "save-vendor-issued.php",
+                data: formData,
+                success: (res) => {
+                    window.location = "item-issued-to-vendor.php";
+                }
+            })
+        });
 
-    let row = `
+        let row = `
+
         <div class="input-field col m5 s12">
-        <select name="item_name_issued[]" style="display:block" >
+        <select name="item_name_issued[]" id="item_name_issued" class="select2" style="display:block">
             <option value="">Select Item Name...</option>
             <?php $sql = "SELECT  id,item_type from tbl_item_type";
             $query = $dbh->prepare($sql);
@@ -280,20 +275,25 @@ if (strlen($_SESSION['emplogin']) == 0) {
         </div>
         <div class="input-field col m5 s12">
             <label for="quantity_issued">Quantity</label>
-            <input type="number" id="quantity_issued" name="quantity_issued[]" required />
+            <input type="number" id="quantity_issued" class="form-control" name="quantity_issued[]" required />
         </div>
         `;
 
-    var max_fields = 20;
-    var wrapper = $(".row_add_on");
-    var add_button = $(".add_field");
 
-    var x = 1;
-    $(add_button).click(function(e) {
-        e.preventDefault();
-        if (x < max_fields) {
-            x++;
-            $(wrapper).append(row);
-        }
-    });
-</script>
+        var max_fields = 20;
+        var wrapper = $(".row_add_on");
+        var add_button = $(".add_field");
+
+        var x = 1;
+        $(add_button).click(function(e) {
+            e.preventDefault();
+            if (x < max_fields) {
+                x++;
+                $(wrapper).append(row);
+            }
+        });
+    </script>
+
+    </body>
+
+    </html>
