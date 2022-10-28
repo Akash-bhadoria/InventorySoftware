@@ -181,7 +181,7 @@ body {
   padding-left: 90px;
   padding-right: 90px;
 }
-/* .form-control{border:1px solid #aaa !important;border-radius:10px !important;padding:10px;} */
+.form-control{border-bottom:1px solid #aaa !important;border-left:none !important;border-right:none !important;border-top:none !important;border-radius:0px !important;padding:10px;}
 
 /* ------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");

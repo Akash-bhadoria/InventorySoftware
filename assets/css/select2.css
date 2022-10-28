@@ -3,6 +3,7 @@
 	display: inline-block;
 	margin: 0;
 	position: relative;
+	width:100% !important;
 	vertical-align: middle;
 	font-size: 13px;
 	font-weight: 400;
