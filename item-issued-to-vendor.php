@@ -20,49 +20,6 @@ if (strlen($_SESSION['emplogin']) == 0) {
         }
     }
 
-    if (isset($_POST['add_issued'])) {
-        $item_name = implode(",", $_POST['item_name_issued']);
-        $quantity = $_POST['quantity_issued'];
-        $date = $_POST['date_issued'];
-        $challan = $_POST['challan_issued'];
-        $vendor = $_POST['vendor_issued'];
-
-
-
-        $sql = "INSERT INTO item_issued_to_vendor(item_name_issued, quantity_issued, date_issued, challan_issued,
-vendor_issued,total_item_left, created_at)
-VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item_quantity,NOW())";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':item_name', $item_name, PDO::PARAM_STR);
-        $query->bindParam(':item_quantity', $quantity, PDO::PARAM_STR);
-        $query->bindParam(':item_date', $date, PDO::PARAM_STR);
-        $query->bindParam(':challan_issued', $challan, PDO::PARAM_STR);
-        $query->bindParam(':vendor_issued', $vendor, PDO::PARAM_STR);
-        $query->execute();
-
-        $lastInsertId = $dbh->lastInsertId();
-        mysqli_query($connection, "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES
-('$lastInsertId','$quantity', NOW())");
-        if ($lastInsertId) {
-            $msg = "Details Saved Successfully";
-?>
-            <script>
-                window.setTimeout(function() {
-                    window.location = "item-issued-to-vendor.php";
-                }, 2000);
-            </script>
-        <?php
-        } else {
-            $error = "Something went wrong. Please try again";
-        ?>
-            <script>
-                window.setTimeout(function() {
-                    window.location = "item-issued-to-vendor.php";
-                }, 2000);
-            </script>
-        <?php
-        }
-    }
 
     if (isset($_GET['delId'])) {
         $id = $_GET['delId'];
@@ -72,7 +29,7 @@ VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item
 
         if ($del1 && $del2) {
             $msg = "Issued vendor Entry Deleted";
-        ?>
+?>
             <script>
                 window.location.href = 'item-issued-to-vendor.php';
             </script>
@@ -96,7 +53,7 @@ VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item
         <?php include('includes/header.php'); ?>
 
         <?php include('includes/sidebar.php'); ?>
-        <main class="mn-inner">
+        <main class="mn-inner" style="width: 145%;">
             <div class="row">
                 <div class="card-content">
 
@@ -118,10 +75,10 @@ VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item
                 <div class="col s12 m12 l8">
                     <div class="card">
                         <div class="card-content" style="font-family: monospace;">
-                            <form id="vendorForm" method="post" name="addemp">
+                            <form id="vendorForm" name="vendorForm" action="form.php" novalidate>
                                 <div>
                                     <span class="headc">ITEM ISSUED TO VENDOR</span>
-                                    <span><a style="margin-left: 699px" class="btn btn-success" href="add-item.php">ADD
+                                    <span><a style="float:right" class="btn btn-success" href="add-item.php">ADD
                                             ITEM</a></span>
                                     <hr>
                                     <section>
@@ -163,38 +120,41 @@ VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item
                                                                 } ?>
                                                             </select>
                                                         </div>
-                                                        <div class="input-field col m5 s12">
-                                                            <select name="item_name_issued[]" autocomplete="off" required multiple>
-                                                                <option value="" disabled>Select Item Name...</option>
-                                                                <?php $sql = "SELECT  id,item_type from tbl_item_type";
-                                                                $query = $dbh->prepare($sql);
-                                                                $query->execute();
-                                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                                                $cnt = 1;
-                                                                if ($query->rowCount() > 0) {
-                                                                    foreach ($results as $result) {   ?>
-                                                                        <option value="<?php echo htmlentities($result->id); ?>">
-                                                                            <?php echo htmlentities($result->item_type); ?></option>
-                                                                <?php }
-                                                                } ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="input-field col m5 s12">
-                                                            <label for="quantity_issued">Quantity</label>
-                                                            <input type="number" id="quantity_issued" name="quantity_issued" required />
-                                                        </div>
-                                                        <div class="input-field col m2 s12">
-                                                            <button class="btn " style="background-color: green;">ADD</button>
+                                                        <div class="row_add_on">
+                                                            <div class="input-field col m5 s12">
+                                                                <select name="item_name_issued[]" autocomplete="off" required>
+                                                                    <option value="">Select Item Name...</option>
+                                                                    <?php $sql = "SELECT  id,item_type from tbl_item_type";
+                                                                    $query = $dbh->prepare($sql);
+                                                                    $query->execute();
+                                                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                                    $cnt = 1;
+                                                                    if ($query->rowCount() > 0) {
+                                                                        foreach ($results as $result) {   ?>
+                                                                            <option value="<?php echo htmlentities($result->id); ?>">
+                                                                                <?php echo htmlentities($result->item_type); ?>
+                                                                            </option>
+                                                                    <?php }
+                                                                    } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="input-field col m5 s12">
+                                                                <label for="quantity_issued">Quantity</label>
+                                                                <input type="number" id="quantity_issued" name="quantity_issued[]" required />
+                                                            </div>
+                                                            <div class="input-field col m2 s12">
+                                                                <button class="btn add_field " style="background-color: green;">ADD</button>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="input-field col m12 s12">
+                                                        <div class="input-field col m6 s12">
                                                             <label class="active" for="vendor">Challan No</label>
                                                             <input type="number" min="1500" id="challan_issued" name="challan_issued" value="<?php echo htmlentities($challan_count + 1); ?>" required />
                                                             <small class="challan">This is automated generated challan
                                                                 number</small>
                                                         </div>
 
-                                                        <div class="input-field col m12 s12">
+                                                        <div class="input-field col m6 s12">
                                                             <label class="active" for="date">Date</label>
                                                             <input type="date" id="date_issued" name="date_issued" value="<?php echo htmlentities($cdate); ?>" required />
                                                         </div>
@@ -285,5 +245,55 @@ VALUES(:item_name,:item_quantity,:item_date,:challan_issued,:vendor_issued,:item
     $('#issuedVendor').DataTable({
         "pageLength": 50,
         "bLengthChange": false,
+    });
+
+    $('#vendorForm').submit(function(e) {
+        e.preventDefault();
+        var formData = $('#vendorForm').serializeArray();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "save-vendor-issued.php",
+            data: formData,
+            success: (res) => {
+                window.location = "item-issued-to-vendor.php";
+            }
+        })
+    });
+
+    let row = `
+        <div class="input-field col m5 s12">
+        <select name="item_name_issued[]" style="display:block" >
+            <option value="">Select Item Name...</option>
+            <?php $sql = "SELECT  id,item_type from tbl_item_type";
+            $query = $dbh->prepare($sql);
+            $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_OBJ);
+            $cnt = 1;
+            if ($query->rowCount() > 0) {
+                foreach ($results as $result) {   ?>
+                    <option value="<?php echo htmlentities($result->id); ?>">
+                        <?php echo htmlentities($result->item_type); ?></option>
+            <?php }
+            } ?>
+            </select>
+        </div>
+        <div class="input-field col m5 s12">
+            <label for="quantity_issued">Quantity</label>
+            <input type="number" id="quantity_issued" name="quantity_issued[]" required />
+        </div>
+        `;
+
+    var max_fields = 20;
+    var wrapper = $(".row_add_on");
+    var add_button = $(".add_field");
+
+    var x = 1;
+    $(add_button).click(function(e) {
+        e.preventDefault();
+        if (x < max_fields) {
+            x++;
+            $(wrapper).append(row);
+        }
     });
 </script>

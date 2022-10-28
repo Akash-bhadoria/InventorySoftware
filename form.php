@@ -21,13 +21,3 @@ if(!empty($_POST["mobileno"])) {
 		echo "<script>$('#add').prop('disabled',false);</script>";
 	}
 }
-
-/**
- *  Filter Query
-*/
-
-
-
-
-
-?>
