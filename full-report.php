@@ -9,116 +9,121 @@ if (strlen($_SESSION['emplogin']) == 0) {
 
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
+<head>
 
-        <!-- Title -->
-        <title>SANTLAL&SONS | REPORT</title>
+    <!-- Title -->
+    <title>SANTLAL&SONS | REPORT</title>
 
-    </head>
+</head>
 
-    <body>
-        <?php include('includes/header.php'); ?>
+<body>
+    <?php include('includes/header.php'); ?>
 
-        <?php include('includes/sidebar.php'); ?>
-        <main class="mn-inner">
-            <div class="row">
-                <div class="col s12 m12 l6" style="width: 100%">
-                    <div class="card">
-                        <div class="card-content">
-                            <form id="filterForm" method="post" name="addemp">
+    <?php include('includes/sidebar.php'); ?>
+    <main class="mn-inner">
+        <div class="row">
+            <div class="col s12 m12 l6" style="width: 100%">
+                <div class="card">
+                    <div class="card-content">
+                        <form id="filterForm" method="post" name="addemp">
+                            <div class="row">
                                 <div class="row">
-                                    <div class="row">
-                                        <span class="headc">REPORT</span>
-                                        <hr>
-                                        <div class="input-field col m3 s12">
-                                            <input id="from_date" type="date" class="validate" autocomplete="off" name="from_date">
-                                            <label class="active" for="from_date">FROM DATE</label>
-                                        </div>
-                                        <div class="input-field col m3 s12">
-                                            <input id="to_date" type="date" class="validate" autocomplete="off" name="to_date">
-                                            <label class="active" for="to_date">TO DATE</label>
-                                        </div>
-                                        <div class="input-field col m3  s12">
-                                            <select name="item_name" id="item_name" autocomplete="off">
-                                                <option></option>
-                                                <?php $sql = "SELECT  id,item_type from tbl_item_type";
+                                    <span class="headc">REPORT</span>
+                                    <hr>
+                                    <div class="input-field col m3 s12">
+                                        <input id="from_date" type="date" class="validate" autocomplete="off"
+                                            name="from_date">
+                                        <label class="active" for="from_date">FROM DATE</label>
+                                    </div>
+                                    <div class="input-field col m3 s12">
+                                        <input id="to_date" type="date" class="validate" autocomplete="off"
+                                            name="to_date">
+                                        <label class="active" for="to_date">TO DATE</label>
+                                    </div>
+                                    <div class="input-field col m3  s12">
+                                        <select name="item_name" id="item_name" autocomplete="off">
+                                            <option></option>
+                                            <?php $sql = "SELECT  id,item_type from tbl_item_type";
                                                 $query = $dbh->prepare($sql);
                                                 $query->execute();
                                                 $items = $query->fetchAll(PDO::FETCH_OBJ);
                                                 $cnt = 1;
                                                 if ($query->rowCount() > 0) {
                                                     foreach ($items as $item) {   ?>
-                                                        <option value="<?php echo $item->id; ?>">
-                                                            <?php echo $item->item_type; ?></option>
-                                                <?php }
+                                            <option value="<?php echo $item->id; ?>">
+                                                <?php echo $item->item_type; ?></option>
+                                            <?php }
                                                 } ?>
-                                            </select>
-                                            <label for="item-name">ITEM NAME</label>
-                                        </div>
-                                        <div class="input-field col m3 s12">
-                                            <input id="challan" type="text" class="validate" autocomplete="off" name="challan">
-                                            <label for="challan">CHALLAN NO</label>
-                                        </div>
-                                        <div class="input-field col m3  s12">
-                                            <select name="vendor_name" id="vendor_name" autocomplete="off">
-                                                <option></option>
-                                                <?php $sql = "SELECT  id,vendor_name from tbl_vendor";
+                                        </select>
+                                        <label for="item-name">ITEM NAME</label>
+                                    </div>
+                                    <div class="input-field col m3 s12">
+                                        <input id="challan" type="text" class="validate" autocomplete="off"
+                                            name="challan">
+                                        <label for="challan">CHALLAN NO</label>
+                                    </div>
+                                    <div class="input-field col m3  s12">
+                                        <select name="vendor_name" id="vendor_name" autocomplete="off">
+                                            <option></option>
+                                            <?php $sql = "SELECT  id,vendor_name from tbl_vendor";
                                                 $query = $dbh->prepare($sql);
                                                 $query->execute();
                                                 $items = $query->fetchAll(PDO::FETCH_OBJ);
                                                 $cnt = 1;
                                                 if ($query->rowCount() > 0) {
                                                     foreach ($items as $item) {   ?>
-                                                        <option value="<?php echo $item->id; ?>">
-                                                            <?php echo $item->vendor_name; ?></option>
-                                                <?php }
+                                            <option value="<?php echo $item->id; ?>">
+                                                <?php echo $item->vendor_name; ?></option>
+                                            <?php }
                                                 } ?>
-                                            </select>
-                                            <label for="item-name">VENDOR NAME</label>
-                                        </div>
+                                        </select>
+                                        <label for="item-name">VENDOR NAME</label>
+                                    </div>
 
 
-                                        <div class="input-field col s12">
-                                            <button type="submit" name="applyFilter" class="waves-effect waves-light btn indigo m-b-xs">Apply FIlter</button>
-                                        </div>
+                                    <div class="input-field col s12">
+                                        <button type="submit" name="applyFilter"
+                                            class="waves-effect waves-light btn indigo m-b-xs">Apply FIlter</button>
                                     </div>
                                 </div>
-                            </form>
-                            <button style="margin-left: 174px;margin-top: -87px" onclick="resetFilter()" class="waves-effect waves-light btn  m-b-xs">Reset
-                                Filter</button>
-                        </div>
+                            </div>
+                        </form>
+                        <button style="margin-left: 174px;margin-top: -148px" onclick="resetFilter()"
+                            class="waves-effect waves-light btn  m-b-xs">Reset
+                            Filter</button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12 m12 l12">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="headc">FILTERED DATA</span>
-                            <hr>
-                            <?php if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong> :
-                                    <?php echo htmlentities($msg); ?> </div><?php } ?>
-                            <table id="filterTable" class="display responsive-table ">
-                                <thead>
-                                    <tr>
-                                        <th>Item Name</th>
-                                        <th>Vendor Name</th>
-                                        <th>Challan No.</th>
-                                        <th>Quantity Issued</th>
-                                        <th>Total Received</th>
-                                        <th>Last Quantity Received</th>
-                                        <th>Defective Item</th>
-                                        <th>Total Item Left</th>
-                                        <th>Issued Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="headc">FILTERED DATA</span>
+                        <hr>
+                        <?php if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong> :
+                            <?php echo htmlentities($msg); ?> </div><?php } ?>
+                        <table id="filterTable" class="display responsive-table ">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Vendor Name</th>
+                                    <th>Challan No.</th>
+                                    <th>Quantity Issued</th>
+                                    <th>Total Received</th>
+                                    <th>Last Quantity Received</th>
+                                    <th>Defective Item</th>
+                                    <th>Total Item Left</th>
+                                    <th>Issued Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    <?php
+                            <tbody>
+                                <?php
                                     if (isset($_POST['applyFilter'])) {
                                         $from_date = $_POST['from_date'];
                                         $to_date = $_POST['to_date'];
@@ -164,59 +169,62 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         if (mysqli_num_rows($qdis) > 0) {
                                             foreach ($qdis as $result) {
                                     ?>
-                                                <tr style="color:#000">
-                                                    <td> <?php echo $result['item_name']; ?> </td>
-                                                    <td> <?php echo $result['vendor_name']; ?> </td>
-                                                    <td> <?php echo $result['challan_issued']; ?> </td>
-                                                    <td style="color: green;"> <?php echo $result['quantity_issued']; ?> </td>
-                                                    <td> <?php echo $result['total_received']; ?> </td>
-                                                    <td style="color: purple;"> <?php echo $result['last_quantity_received']; ?> </td>
-                                                    <td style="color: orange;"> <?php echo $result['defective_item']; ?> </td>
-                                                    <td style="color: red;"> <?php echo $result['total_item_left']; ?> </td>
-                                                    <td> <?php echo $result['date_issued']; ?> </td>
-                                                    <td> <a class="btn btn-success" href="item-received-update-vendor.php?id=<?php echo htmlentities($result['id']); ?>">ADD
-                                                            RECEIVED</a>
-                                                    </td>
-                                                </tr>
+                                <tr style="color:#000">
+                                    <td> <?php echo $result['item_name']; ?> </td>
+                                    <td> <?php echo $result['vendor_name']; ?> </td>
+                                    <td> <a target="_blank"
+                                            href="item-by-challan.php?challan_id=<?php echo $result['challan_issued']; ?>&vendor_name=<?php echo $result['vendor_name']; ?>&date=<?php echo $result['date_issued']; ?>"><?php echo $result['challan_issued']; ?></a>
+                                    </td>
+                                    <td style="color: green;"> <?php echo $result['quantity_issued']; ?> </td>
+                                    <td> <?php echo $result['total_received']; ?> </td>
+                                    <td style="color: purple;"> <?php echo $result['last_quantity_received']; ?> </td>
+                                    <td style="color: orange;"> <?php echo $result['defective_item']; ?> </td>
+                                    <td style="color: red;"> <?php echo $result['total_item_left']; ?> </td>
+                                    <td> <?php echo $result['date_issued']; ?> </td>
+                                    <td> <a class="btn btn-success"
+                                            href="item-received-update-vendor.php?id=<?php echo $result['id']; ?>">ADD
+                                            RECEIVED</a>
+                                    </td>
+                                </tr>
 
-                                            <?php
+                                <?php
                                             }
                                         } else {
                                             ?>
-                                            <script>
-                                                Swal.fire({
-                                                    title: 'No Record Found',
-                                                    text: "Search Something Different",
-                                                    icon: "error",
-                                                    timer: 3000,
-                                                });
-                                            </script>
-                                    <?php
+                                <script>
+                                Swal.fire({
+                                    title: 'No Record Found',
+                                    text: "Search Something Different",
+                                    icon: "error",
+                                    timer: 3000,
+                                });
+                                </script>
+                                <?php
                                         }
                                     } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
-        </main>
-
         </div>
-        <div class="left-sidebar-hover"></div>
 
-    </body>
+    </main>
 
-    </html>
+    </div>
+    <div class="left-sidebar-hover"></div>
+
+</body>
+
+</html>
 <?php } ?>
 <script>
-    $('#filterTable').DataTable({
-        "pageLength": 50,
-        "bLengthChange": false,
-    });
+$('#filterTable').DataTable({
+    "pageLength": 50,
+    "bLengthChange": false,
+});
 
-    function resetFilter() {
-        $('#filterForm').trigger('reset');
-    }
+function resetFilter() {
+    $('#filterForm').trigger('reset');
+}
 </script>
