@@ -44,7 +44,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         <label class="active" for="to_date">TO DATE</label>
                                     </div>
                                     <div class="input-field col m3  s12">
-                                        <select name="item_name" id="item_name" autocomplete="off">
+                                        <select name="item_name" id="item_name" class="select2" autocomplete="off">
                                             <option></option>
                                             <?php $sql = "SELECT  id,item_type from tbl_item_type";
                                                 $query = $dbh->prepare($sql);
@@ -66,7 +66,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         <label for="challan">CHALLAN NO</label>
                                     </div>
                                     <div class="input-field col m3  s12">
-                                        <select name="vendor_name" id="vendor_name" autocomplete="off">
+                                        <select name="vendor_name" id="vendor_name" class="select2" autocomplete="off">
                                             <option></option>
                                             <?php $sql = "SELECT  id,vendor_name from tbl_vendor";
                                                 $query = $dbh->prepare($sql);
@@ -223,6 +223,9 @@ $('#filterTable').DataTable({
     "pageLength": 50,
     "bLengthChange": false,
 });
+
+$(".select2").select2();
+
 
 function resetFilter() {
     $('#filterForm').trigger('reset');
