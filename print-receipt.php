@@ -32,15 +32,35 @@ if (strlen($_SESSION['emplogin']) == 0) {
             <div class="col s12 m12 l12">
                 <div class="card">
                     <div class="card-content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <span style="font-size:10px">GSTIN : 07AAAPS8130K1ZJ</span>
+                                <span style="font-size:10px; float:right">(O) 011-45721409</span>
+                            </div>
+                            <div class="row" style="margin-top:-26px">
+                                <span style="font-size:10px">KATHURA WALE</span>
+                                <span style="font-size:10px; float:right">(m) 9654273740</span>
+                            </div>
+                        </div>
+                        <center style="margin-top: -52px; margin-left:72px"><img src="assets/images/logo.png" alt="logo"
+                                height="50px">
+                        </center>
+                        <center><small><u>CHALLAN</u></small></center>
                         <span class="headc">
                             <center>SANT LAL & SONS</center>
-                            <hr>
-                            <h6>Challan Number : <?php echo $challan_id ?></h6>
-                            <h6>Vendor Name : <?php echo $vendor_name ?></h6>
-                            <h6>Date Of Issue : <?php echo $date ?></h6>
+                            <center><small style="font-size: 13px;">4307 (First Floor) Gali Vhairon Wali, Jogiwara, Nai
+                                    Sarak, Chandni Chowk, Delhi - 110006</small></center>
                             <hr>
                         </span>
-                        <table id="itemCompany" class="display responsive-table ">
+                        <span>
+                            <div>
+                                <h6 style="font-size:10px">Challan Number : <?php echo $challan_id ?></h6>
+                                <h6 style="font-size:10px">Vendor Name : <?php echo $vendor_name ?></h6>
+                                <h6 style="font-size:10px">Date Of Issue : <?php echo $date ?></h6>
+                            </div>
+                            <hr>
+                        </span>
+                        <table id="itemCompany" class="display responsive-table " style="font-size: 9px;">
                             <thead>
                                 <tr>
                                     <th>Sr no</th>
