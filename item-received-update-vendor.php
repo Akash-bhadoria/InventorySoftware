@@ -10,7 +10,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
     
     if (isset($_POST['update'])) {
 
-         $challan_id=$_GET['challan_id'];
+        $challan_id=$_GET['challan_id'];
         $vendor_name=$_GET['vendor_name'];
         $date=$_GET['date'];
     

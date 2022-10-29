@@ -222,13 +222,13 @@ window.location.href = 'item-issued-to-vendor.php';
                                     <td><?php echo htmlentities($result->total_item); ?></td>
                                     <td><?php echo htmlentities($result->date_issued); ?></td>
                                     <td><a class="btn btn-success" style="background-color: blue"
-                                            href="item-by-challan.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>&vendor_name=<?php echo htmlentities($result->vendor_name); ?>&date=<?php echo htmlentities($result->date_issued); ?>">OPEN
+                                            href="item-by-challan.php?challan_id=<?php echo $result->challan_issued ?>&vendor_name=<?php echo $result->vendor_name ?>&date=<?php echo $result->date_issued ?>">OPEN
                                             CHALLAN</a>
-                                        <a class="btn btn-success" style="background-color: orange"
-                                            href="print-receipt.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>">RECEIPT</a>
+                                        <a class="btn btn-success" style="background-color: orange" target="_blank"
+                                            href="print-receipt.php?challan_id=<?php echo $result->challan_issued ?>&vendor_name=<?php echo $result->vendor_name ?>&date=<?php echo $result->date_issued ?>">RECEIPT</a>
                                         <a class="btn btn-success" style="background-color: red"
                                             onclick="return confirm('Do you want to delete  challan  Once its done it cant be revert');"
-                                            href="item-issued-to-vendor.php?challan_id=<?php echo htmlentities($result->challan_issued); ?>">DELETE</a>
+                                            href="item-issued-to-vendor.php?challan_id=<?php echo $result->challan_issued ?>">DELETE</a>
                                     </td>
                                 </tr>
                                 <?php $cnt++;

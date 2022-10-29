@@ -64,14 +64,14 @@ header('location:index.php');
                                                         <label class="active" for="firstName">First name</label>
                                                         <input id="firstName" name="firstName"
                                                             value="<?php echo htmlentities($result->FirstName);?>"
-                                                            type="text" required>
+                                                            type="text" required readonly>
                                                     </div>
 
                                                     <div class="input-field col m6 s12">
                                                         <label class="active" for="lastName">Last name </label>
                                                         <input id="lastName" name="lastName"
                                                             value="<?php echo htmlentities($result->LastName);?>"
-                                                            type="text" autocomplete="off" required>
+                                                            type="text" autocomplete="off" required readonly>
                                                     </div>
 
                                                     <div class="input-field col s12">
