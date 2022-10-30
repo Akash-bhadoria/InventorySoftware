@@ -269,7 +269,7 @@ window.location.href = 'item-issued-to-vendor.php';
     let row = `
 
         <div class="input-field col m5 s12">
-        <select name="item_name_issued[]" id="item_name_issued" class="select2 " style="display:block">
+        <select name="item_name_issued[]" id="item_name_issued" class=" form-control select2 " style="display:block">
             <option value="">Select Item Name...</option>
             <?php $sql = "SELECT  id,item_type from tbl_item_type";
             $query = $dbh->prepare($sql);
