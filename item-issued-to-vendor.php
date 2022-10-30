@@ -282,7 +282,7 @@ window.location.href = 'item-issued-to-vendor.php';
                 $('#add_issued').prop("disabled", false);
                 $('#add_issued').html("ADD MORE ITEM");
                 $('#showItems').html('ADDED ITEMS NAME : ' +
-                    item_name);
+                    item_name.join(', '));
 
                 Swal.fire({
                     title: 'success',
