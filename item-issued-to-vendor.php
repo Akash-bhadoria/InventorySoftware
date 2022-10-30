@@ -62,13 +62,18 @@ window.location.href = 'item-issued-to-vendor.php';
 
         </div>
         <div class="row">
+
             <div class="col s12 m12 l8">
                 <div class="card">
                     <div class="card-content" style="font-family: monospace;">
                         <form id="vendorForm" name="vendorForm" action="form.php" novalidate>
                             <div>
                                 <span class="headc">ITEM ISSUED TO VENDOR</span>
-                                <span><a style="float:right" class="btn btn-success" href="add-item.php">ADD
+                                <span><a style="float:right; margin-left:35px" style="background-color: blue"
+                                        class="btn btn-success" href="item-issued-to-vendor.php">GENERATE NEW
+                                        CHALLAN</a></span>
+                                <span><a style="float:right" style="background-color: pink" target="_blank"
+                                        class="btn btn-success" href="add-item.php">ADD
                                         ITEM</a></span>
                                 <hr>
                                 <section>
@@ -111,6 +116,23 @@ window.location.href = 'item-issued-to-vendor.php';
                                                                 } ?>
                                                         </select>
                                                     </div>
+
+                                                    <div class="input-field col m6 s12" style="margin-top: 35px">
+                                                        <label class="active" for="vendor">Challan No (<small
+                                                                class="challan">This is automated generated challan
+                                                                number</small>)</label>
+                                                        <input type="number" min="1500" id="challan_issued"
+                                                            name="challan_issued"
+                                                            value="<?php echo htmlentities($challan_count + 1); ?>"
+                                                            required />
+                                                    </div>
+
+                                                    <div class="input-field col m6 s12" style="margin-top: 35px">
+                                                        <label class="active" for="date">Date</label>
+                                                        <input type="date" id="date_issued" name="date_issued"
+                                                            value="<?php echo htmlentities($cdate); ?>" required />
+                                                    </div>
+
                                                     <div class="row_add_on">
                                                         <div class="input-field col m5 s12">
                                                             <select name="item_name_issued[]" id="item_name_issued"
@@ -136,34 +158,18 @@ window.location.href = 'item-issued-to-vendor.php';
                                                             <input type="number" id="quantity_issued"
                                                                 name="quantity_issued[]" required />
                                                         </div>
-                                                        <div class="input-field col m2 s12">
+                                                        <!-- <div class="input-field col m2 s12">
                                                             <button class="btn add_field "
                                                                 style="background-color: green;">ADD</button>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
-
-                                                    <div class="input-field col m6 s12">
-                                                        <label class="active" for="vendor">Challan No</label>
-                                                        <input type="number" min="1500" id="challan_issued"
-                                                            name="challan_issued"
-                                                            value="<?php echo htmlentities($challan_count + 1); ?>"
-                                                            required />
-                                                        <small class="challan">This is automated generated challan
-                                                            number</small>
-                                                    </div>
-
-                                                    <div class="input-field col m6 s12">
-                                                        <label class="active" for="date">Date</label>
-                                                        <input type="date" id="date_issued" name="date_issued"
-                                                            value="<?php echo htmlentities($cdate); ?>" required />
-                                                    </div>
-
-
 
                                                 </div>
 
                                                 <button type="submit" name="add_issued" id="add_issued"
-                                                    class="waves-effect waves-light btn indigo m-b-xs">SAVE</button>
+                                                    class="waves-effect waves-light btn indigo m-b-xs">ADD</button>
+                                                <span><a style="float:right" class="btn btn-success"
+                                                        href="item-issued-to-vendor.php">CONFIRM ENTRIES</a></span>
 
                                             </div>
                                         </div>
@@ -255,16 +261,31 @@ window.location.href = 'item-issued-to-vendor.php';
     $('#vendorForm').submit(function(e) {
         e.preventDefault();
         var formData = $('#vendorForm').serializeArray();
+        $('#add_issued').prop("disabled", true);
+        $('#add_issued').html("Please Wait...");
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "save-vendor-issued.php",
             data: formData,
             success: (res) => {
-                window.location = "item-issued-to-vendor.php";
+                $('#quantity_issued').val("");
+                $('#item_name_issued').trigger('change');
+                $('#add_issued').prop("disabled", false);
+                $('#add_issued').html("ADD MORE ITEM");
+
+                Swal.fire({
+                    title: 'success',
+                    text: "Item Added Successfully To Challan No " + $('#challan_issued')
+                        .val(),
+                    icon: "success",
+                    timer: 4000,
+                });
             }
         })
     });
+
+
 
     let row = `
 
