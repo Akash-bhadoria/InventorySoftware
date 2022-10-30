@@ -124,7 +124,7 @@ window.location.href = 'item-issued-to-vendor.php';
                                                         <input type="number" min="1500" id="challan_issued"
                                                             name="challan_issued"
                                                             value="<?php echo htmlentities($challan_count + 1); ?>"
-                                                            required />
+                                                            required readonly />
                                                     </div>
 
                                                     <div class="input-field col m6 s12" style="margin-top: 35px">
