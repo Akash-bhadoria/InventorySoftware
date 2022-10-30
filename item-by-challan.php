@@ -73,7 +73,7 @@ else{
                                 <?php $sql = "SELECT
                                             	iitv.*,
                                             	irfv.*,
-                                            	tit.item_type 
+                                            	tit.item_type AS item_name
                                             FROM
                                             	item_issued_to_vendor iitv
                                             	LEFT JOIN item_received_from_vendor irfv ON
