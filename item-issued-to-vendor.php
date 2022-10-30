@@ -174,9 +174,9 @@ window.location.href = 'item-issued-to-vendor.php';
 
                                             </div>
                                         </div>
-                                </section>
-
-
+                                        <span>
+                                            <h6 id="showItems"></h6>
+                                        </span>
                                 </section>
                             </div>
                         </form>
@@ -253,6 +253,7 @@ window.location.href = 'item-issued-to-vendor.php';
 
     <?php } ?>
     <script>
+    const item_name = [];
     $('#issuedVendor').DataTable({
         "pageLength": 50,
         "bLengthChange": false,
@@ -261,6 +262,11 @@ window.location.href = 'item-issued-to-vendor.php';
 
     $('#vendorForm').submit(function(e) {
         e.preventDefault();
+
+        var itemname = document.getElementById('item_name_issued');
+        var text = itemname.options[itemname.selectedIndex].text;
+        item_name.push(text);
+
         var formData = $('#vendorForm').serializeArray();
         $('#add_issued').prop("disabled", true);
         $('#add_issued').html("Please Wait...");
@@ -270,10 +276,13 @@ window.location.href = 'item-issued-to-vendor.php';
             url: "save-vendor-issued.php",
             data: formData,
             success: (res) => {
-                $('#quantity_issued').val("");
+                $('#item_name_issued').val('0');
                 $('#item_name_issued').trigger('change');
+                $('#quantity_issued').val("");
                 $('#add_issued').prop("disabled", false);
                 $('#add_issued').html("ADD MORE ITEM");
+                $('#showItems').html('ADDED ITEMS NAME : ' +
+                    item_name);
 
                 Swal.fire({
                     title: 'success',
