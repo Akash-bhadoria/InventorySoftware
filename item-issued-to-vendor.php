@@ -261,7 +261,7 @@ window.location.href = 'item-issued-to-vendor.php';
             url: "save-vendor-issued.php",
             data: formData,
             success: (res) => {
-                // window.location = "item-issued-to-vendor.php";
+                window.location = "item-issued-to-vendor.php";
             }
         })
     });
