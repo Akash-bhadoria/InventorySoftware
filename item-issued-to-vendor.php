@@ -69,11 +69,11 @@ window.location.href = 'item-issued-to-vendor.php';
                         <form id="vendorForm" name="vendorForm" action="form.php" novalidate>
                             <div>
                                 <span class="headc">ITEM ISSUED TO VENDOR</span>
-                                <span><a style="float:right; margin-left:35px" style="background-color: blue"
-                                        class="btn btn-success" href="item-issued-to-vendor.php">GENERATE NEW
+                                <span><a style="float:right; margin-left:35px" class="btn btn-success"
+                                        href="item-issued-to-vendor.php">GENERATE NEW
                                         CHALLAN</a></span>
-                                <span><a style="float:right" style="background-color: pink" target="_blank"
-                                        class="btn btn-success" href="add-item.php">ADD
+                                <span><a style="float:right" target="_blank" class="btn btn-success" href="add-item.php"
+                                        onclick="return confirm('Thi will take you to the new issue page cannot revert');">ADD
                                         ITEM</a></span>
                                 <hr>
                                 <section>
@@ -169,6 +169,7 @@ window.location.href = 'item-issued-to-vendor.php';
                                                 <button type="submit" name="add_issued" id="add_issued"
                                                     class="waves-effect waves-light btn indigo m-b-xs">ADD</button>
                                                 <span><a style="float:right" class="btn btn-success"
+                                                        onclick="return confirm('Once Confirm, all challan entries may confirm and added sucessfully');"
                                                         href="item-issued-to-vendor.php">CONFIRM ENTRIES</a></span>
 
                                             </div>
