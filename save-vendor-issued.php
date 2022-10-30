@@ -26,7 +26,11 @@ if ($vendor_id != "") {
         $query->execute();
 
         $lastInsertId = $dbh->lastInsertId();
-        mysqli_query($connection, "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES('$lastInsertId','$quantity[$key]', NOW())");
+        $sql2 = "INSERT INTO item_received_from_vendor(issued_id, total_item_left, updated_at) VALUES(:last_id,:item_quantity, NOW())";
+        $query2 = $dbh->prepare($sql2);
+        $query2->bindParam(':last_id', $lastInsertId, PDO::PARAM_STR);
+        $query2->bindParam(':item_quantity', $quantitys[$key], PDO::PARAM_STR);
+        $query2->execute();
     }
     echo json_encode('success');
 }
