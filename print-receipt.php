@@ -20,10 +20,16 @@ if (strlen($_SESSION['emplogin']) == 0) {
 
     <!-- Title -->
     <title>SANTLAL&SONS | RECEIPT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+    @page {
+        size: A5
+    }
+    </style>
 
 </head>
 
-<body>
+<body class="A5">
 
     <main class="mn-inner">
         <div class="row">
