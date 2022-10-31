@@ -54,7 +54,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                         <center><small><u>CHALLAN</u></small></center>
                         <span class="headc">
                             <center>SANT LAL & SONS</center>
-                            <center><small style="font-size: 13px;">4307 (First Floor) Gali Vhairon Wali, Jogiwara, Nai
+                            <center><small style="font-size: 11px;">4307 (First Floor) Gali Vhairon Wali, Jogiwara, Nai
                                     Sarak, Chandni Chowk, Delhi - 110006</small></center>
                             <hr>
                         </span>
