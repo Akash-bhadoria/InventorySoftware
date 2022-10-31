@@ -135,13 +135,13 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                     iitv.*,
                                     irfv.*,
                                     tbl_vendor.vendor_name,
-                                    GROUP_CONCAT(tit.item_type SEPARATOR ', ')as item_name
+                                    tit.item_type as item_name
                                     FROM 
                                     item_issued_to_vendor iitv
                                     LEFT JOIN item_received_from_vendor irfv ON 
                                     irfv.issued_id = iitv.id 
                                     LEFT JOIN tbl_item_type tit ON 
-                                    FIND_IN_SET(tit.id, iitv.item_name_issued) > 0 
+                                    tit.id = iitv.item_name_issued 
                                     LEFT JOIN tbl_vendor ON 
                                     tbl_vendor.id = iitv.vendor_issued 
                                     WHERE 
@@ -162,7 +162,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         if ($from_date != "" && $to_date != "") {
                                             $query .= " AND iitv.date_issued BETWEEN '$from_date' AND '$to_date'";
                                         }
-                                        $query .= " GROUP BY iitv.id ORDER BY iitv.challan_issued DESC  ";
+                                        $query .= " GROUP BY iitv.id ORDER BY iitv.id DESC  ";
 
                                         $qdis = mysqli_query($connection, $query);
 
@@ -181,8 +181,8 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                     <td style="color: orange;"> <?php echo $result['defective_item']; ?> </td>
                                     <td style="color: red;"> <?php echo $result['total_item_left']; ?> </td>
                                     <td> <?php echo $result['date_issued']; ?> </td>
-                                    <td> <a class="btn btn-success"
-                                            href="item-received-update-vendor.php?id=<?php echo $result['id']; ?>">ADD
+                                    <td> <a class="btn btn-success" style="background-color: blue"
+                                            href="item-received-update-vendor.php?id=<?php echo $result['issued_id']; ?>">ADD
                                             RECEIVED</a>
                                     </td>
                                 </tr>
@@ -222,6 +222,9 @@ if (strlen($_SESSION['emplogin']) == 0) {
 $('#filterTable').DataTable({
     "pageLength": 50,
     "bLengthChange": false,
+    order: [
+        [2, 'desc']
+    ],
 });
 
 $(".select2").select2();
