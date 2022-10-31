@@ -1,6 +1,6 @@
 <?php
 session_start();
-// error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 include('includes/layout.php');
 if (strlen($_SESSION['emplogin']) == 0) {
