@@ -158,10 +158,6 @@ window.location.href = 'item-issued-to-vendor.php';
                                                             <input type="number" id="quantity_issued"
                                                                 name="quantity_issued[]" required />
                                                         </div>
-                                                        <!-- <div class="input-field col m2 s12">
-                                                            <button class="btn add_field "
-                                                                style="background-color: green;">ADD</button>
-                                                        </div> -->
                                                     </div>
 
                                                 </div>
@@ -174,9 +170,19 @@ window.location.href = 'item-issued-to-vendor.php';
 
                                             </div>
                                         </div>
-                                        <span>
-                                            <h6 id="showItems"></h6>
-                                        </span>
+                                        <div class="container" id="itemTable" style="display: none;">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Quantity Issued</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="showItems">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                 </section>
                             </div>
                         </form>
@@ -265,7 +271,12 @@ window.location.href = 'item-issued-to-vendor.php';
 
         var itemname = document.getElementById('item_name_issued');
         var text = itemname.options[itemname.selectedIndex].text;
-        item_name.push(text);
+        var quantity = $('#quantity_issued').val();
+        item_name.push({
+            'name': text,
+            'quantity': quantity
+        });
+
 
         var formData = $('#vendorForm').serializeArray();
         $('#add_issued').prop("disabled", true);
@@ -281,8 +292,8 @@ window.location.href = 'item-issued-to-vendor.php';
                 $('#quantity_issued').val("");
                 $('#add_issued').prop("disabled", false);
                 $('#add_issued').html("ADD MORE ITEM");
-                $('#showItems').html('ADDED ITEMS NAME : ' +
-                    item_name.join(', '));
+                apendItem(item_name);
+                $('#itemTable').show();
 
                 Swal.fire({
                     title: 'success',
@@ -294,6 +305,14 @@ window.location.href = 'item-issued-to-vendor.php';
             }
         })
     });
+
+    function apendItem(data) {
+        let option = "";
+        data.forEach(item => {
+            option += `<tr><td>${item.name}</td><td>${item.quantity}</td></tr>`;
+        });
+        $('#showItems').html(option);
+    }
 
 
 
