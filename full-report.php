@@ -181,7 +181,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                     <td style="color: orange;"> <?php echo $result['defective_item']; ?> </td>
                                     <td style="color: red;"> <?php echo $result['total_item_left']; ?> </td>
                                     <td> <?php echo $result['date_issued']; ?> </td>
-                                    <td> <a class="btn btn-success" style="background-color: blue"
+                                    <td> <a class="btn btn-success" style="background-color: blue" target="_blank"
                                             href="item-received-update-vendor.php?id=<?php echo $result['issued_id']; ?>">ADD
                                             RECEIVED</a>
                                     </td>

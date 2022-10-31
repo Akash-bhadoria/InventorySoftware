@@ -234,7 +234,7 @@ window.location.href = 'item-issued-to-vendor.php';
                                     <td><?php echo htmlentities($result->total_quantity); ?></td>
                                     <td><?php echo htmlentities($result->total_item); ?></td>
                                     <td><?php echo htmlentities($result->date_issued); ?></td>
-                                    <td><a class="btn btn-success" style="background-color: blue"
+                                    <td><a class="btn btn-success" style="background-color: blue" target="_blank"
                                             href="item-by-challan.php?challan_id=<?php echo $result->challan_issued ?>&vendor_name=<?php echo $result->vendor_name ?>&date=<?php echo $result->date_issued ?>">OPEN
                                             CHALLAN</a>
                                         <a class="btn btn-success" style="background-color: orange" target="_blank"
