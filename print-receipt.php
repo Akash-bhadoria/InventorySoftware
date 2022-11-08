@@ -135,7 +135,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
             </div>
         </div>
         <div style="margin-left: 600px;">
-            <h6 style="padding-top: 30px;">Authorised Signature</h6>
+            <h6 style="padding-top: 295px;">Authorised Signatory</h6>
         </div>
     </main>
 
