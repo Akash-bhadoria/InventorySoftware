@@ -30,7 +30,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
 
 </head>
 
-<body class="A5">
+<body class="">
 
     <main class="mn-inner">
         <div class="row">
@@ -60,10 +60,17 @@ if (strlen($_SESSION['emplogin']) == 0) {
                             <hr>
                         </span>
                         <span>
-                            <div>
-                                <h6 style="font-size:12px;font-weight:600";>Challan Number : <?php echo $challan_id ?></h6>
-                                <h6 style="font-size:12px;font-weight:600;text-align:Center">Vendor Name : <?php echo $vendor_name; ?></h6>
-                                <h6 style="font-size:12px;font-weight:600">Date Of Issue : <?php echo $date ?></h6>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <span style="font-size:12px;font-weight:600" ;>Challan Number :
+                                        <?php echo $challan_id ?>
+                                    </span>
+                                    <span style="font-size:12px;font-weight:600;padding-left:150px">Vendor Name :
+                                        <?php echo $vendor_name; ?>
+                                    </span>
+                                    <span style="font-size:12px;font-weight:600; float:right;">Date Of Issue :
+                                        <?php echo $date ?></span>
+                                </div>
                             </div>
                             <hr>
                         </span>
@@ -71,8 +78,8 @@ if (strlen($_SESSION['emplogin']) == 0) {
                             <thead>
                                 <tr>
                                     <!--<th>Sr no</th>-->
-                                    <th>Item Name</th>
                                     <th>Quantity Issue</th>
+                                    <th>Item Name</th>
                                 </tr>
                             </thead>
 
@@ -93,10 +100,10 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                     if ($query->rowCount() > 0) {
                                         foreach ($results as $result) {
                                     ?>
-                                <tr>
-                                     <?php //echo htmlentities($cnt); ?>
-                                    <td><?php echo htmlentities($result->item_type); ?></td>
+                                <tr style="border-bottom: 1px solid grey">
+                                    <?php //echo htmlentities($cnt); ?>
                                     <td><?php echo htmlentities($result->quantity_issued); ?></td>
+                                    <td><?php echo htmlentities($result->item_type); ?></td>
 
                                 </tr>
                                 <?php $cnt++;
@@ -104,9 +111,31 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                     } ?>
                             </tbody>
                         </table>
+                        <?php
+                        $sql = "SELECT
+                                	 SUM(iitv.quantity_issued) as total
+                                FROM
+                                	item_issued_to_vendor iitv
+                                WHERE
+                                	iitv.challan_issued = '$challan_id'";
+                                    $query = $dbh->prepare($sql);
+                                    $query->execute();
+                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                    foreach ($results as $result) {
+                                        ?>
+                        <p style="font-size: 12px; padding-left:2px"><?php echo $result->total ?>
+                            <hr>
+                        </p>
+                        <?php
+                                    }
+                                     
+                        ?>
                     </div>
                 </div>
             </div>
+        </div>
+        <div style="margin-left: 600px;">
+            <h6 style="padding-top: 30px;">Authorised Signature</h6>
         </div>
     </main>
 
